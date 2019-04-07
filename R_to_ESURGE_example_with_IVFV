@@ -13,7 +13,7 @@ library('R.matlab')
 matlab1 <- Matlab(port=9999); open(matlab1)
 
 ## Open a headed file with E-SURGE (important to do before trying to load the model!)
-#Numbers at the end of the data loading command: (file type,nothing, nothing, noting, #states, #events)
+#Numbers at the end of the data loading command: (file type, nothing, nothing, noting, #states, #events)
 #File type: 1- Biomeco; 2- mark; 3- headed
 #Biomeco format does not prompt a window asking for covariates, so this file format should be used if you want to load multiple datasets for multiple iterations uninterrupted
 

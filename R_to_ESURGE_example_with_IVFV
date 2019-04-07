@@ -65,10 +65,10 @@ for(i in 1:n.iter){
   #Write fixed values to model definition
   evaluate(matlab1,"[modeldef,ivfvdef]=esurge_ivfv(modeldef,sep,indR,indB,valR,valB)")
 
-  #Function to attribute initial values. 
-  #Important that they are in the right order. Also best if stored as a vector (matrices do not work so well right now)
+  #Function to attribute initial values. The script for this function is found on the same repository as this script
+  #Important that IVs are in the right order. Also best if stored as a vector (matrices do not work so well right now)
   #IVs need to be on the real scale!
-  init.val<-IV(fulltime=F, sumrec=T)
+  init.val<-IV() 
 
   #Send IVs to matlab
   setVariable(matlab1,x=init.val);

@@ -74,7 +74,7 @@ IV<-function(init.states=NULL, # title of initial parameters
   trs.low     <-c(0         ,  0.85)   #(min val for col loss, min val for survival)
 
   events      <-c('recap','rec.band','obs.col','obs.hunt','rec.col')
-  np.event    <-c(21     , 40       , 39      , 39       , 40)
+  np.event    <-c(20     , 40       , 39      , 39       , 40)
   event.up    <-c(0.05   , 0.4      , 0.6     , 0.3      , 0.4) 
   event.low   <-c(0      , 0.15     , 0.4     , 0.2      , 0.15)
 

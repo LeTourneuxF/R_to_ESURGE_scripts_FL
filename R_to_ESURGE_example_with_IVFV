@@ -9,7 +9,7 @@ setwd('C:\\.....')
 
 library('R.matlab')
 
-## Connect to each of them
+## Open connection to matlab
 matlab1 <- Matlab(port=9999); open(matlab1)
 
 ## Open a headed file with E-SURGE (important to do before trying to load the model!)
@@ -105,6 +105,7 @@ init.vals$IVFV
 init.vals$init.real
 
 initial.values<-init.vals$init.real
+  
   #Send IVs to matlab
   setVariable(matlab1,x=initial.values);
   evaluate(matlab1,"model=modeldef{3};")

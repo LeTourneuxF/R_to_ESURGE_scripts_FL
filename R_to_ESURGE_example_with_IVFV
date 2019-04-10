@@ -110,13 +110,13 @@ for(i in 1:n.iter){
      event.up   = event.up,   
      event.low  = event.low)
 
-#Can check IVFV to be sure that all is OK (with parameter names)
-init.vals$IVFV
+  #Can check IVFV to be sure that all is OK (with parameter names)
+  init.vals$IVFV
 
-#Get inits on the real scale
-init.vals$init.real
+  #Get inits on the real scale
+  init.vals$init.real
 
-initial.values<-init.vals$init.real
+  initial.values<-init.vals$init.real
   
   #Send IVs to matlab
   setVariable(matlab1,x=initial.values);

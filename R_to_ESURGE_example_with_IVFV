@@ -68,10 +68,45 @@ for(i in 1:n.iter){
   #Function to attribute initial values. The script for this function is found on the same repository as this script
   #Important that IVs are in the right order. Also best if stored as a vector (matrices do not work so well right now)
   #IVs need to be on the real scale!
-  init.val<-IV() 
+  init.states <-c("AC", 'AL', "ND1L")
+  np.inits    <-c(1   , 1   , 1)
+  inits.up    <-c(0.3 , 0.9 , 0.1)
+  inits.low   <-c(0.1 , 0.5 , 0)
 
+  transitions <-c('col.loss', 'surv')
+  np.trs      <-c(1         ,  4)
+  trs.up      <-c(0.05      ,  0.999)  #(max val for col loss, max val for survival)
+  trs.low     <-c(0         ,  0.85)   #(min val for col loss, min val for survival)
+
+  events      <-c('recap','rec.band','obs.col','obs.hunt','rec.col')
+  np.event    <-c(21     , 40       , 39      , 39       , 40)
+  event.up    <-c(0.05   , 0.4      , 0.6     , 0.3      , 0.4) 
+  event.low   <-c(0      , 0.15     , 0.4     , 0.2      , 0.15)
+
+
+  #If no initial states to estimate, no need to specify them in the function (there are default values), unlike for transitions and events.
+  init.vals<-  IV(init.states = init.states, 
+     np.inits    = np.inits,    
+     inits.up    = inits.up,    
+     inits.low   = inits.low,   
+     transitions = transitions, 
+     np.trs      = np.trs,      
+     trs.up      = trs.up,      
+     trs.low     = trs.low,     
+     events      = events,      
+     np.event    = np.event,    
+     event.up   = event.up,   
+     event.low  = event.low)
+
+#Can check IVFV to be sure that all is OK (with parameter names)
+init.vals$IVFV
+
+#Get inits on the real scale
+init.vals$init.real
+
+initial.values<-init.vals$init.real
   #Send IVs to matlab
-  setVariable(matlab1,x=init.val);
+  setVariable(matlab1,x=initial.values);
   evaluate(matlab1,"model=modeldef{3};")
 
   #Write IVs to model definition

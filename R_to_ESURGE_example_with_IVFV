@@ -46,7 +46,37 @@ sigmamoins     <-matrix(NA, ncol=n.iter, nrow=n.pars)
 initial_values <-matrix(NA, ncol=n.iter, nrow=n.pars)
 devi           <-rep(NA, length=n.iter)
 
+#Function to attribute initial values. The script for this function is found on the same repository as this script
+#Important that IVs are in the right order. Also best if stored as a vector (matrices do not work so well right now)
+#IVs need to be on the real scale!
+IV<-function(init.states=NULL, # title of initial parameters
+             np.inits=0,       # number of parameters
+             inits.up=NULL,    # max value for IV inits
+             inits.low=NULL,   # min value for IV inits
+             transitions,      # title of transision parameters
+             np.trs,           # number of probabilities to estimate for each transition parameter
+             trs.up,           # max value for IV transition
+             trs.low,          # min value for IV transition
+             events,           # title of event parameters
+             np.event,         # number of probabilities to estimate for each event parameter
+             event.up,         # max value for IV event   
+             event.low){...}
 
+#Set up the arguments for the IV function
+  init.states <-c("AC", 'AL', "ND1L")
+  np.inits    <-c(1   , 1   , 1)
+  inits.up    <-c(0.3 , 0.9 , 0.1)
+  inits.low   <-c(0.1 , 0.5 , 0)
+
+  transitions <-c('col.loss', 'surv')
+  np.trs      <-c(1         ,  4)
+  trs.up      <-c(0.05      ,  0.999)  #(max val for col loss, max val for survival)
+  trs.low     <-c(0         ,  0.85)   #(min val for col loss, min val for survival)
+
+  events      <-c('recap','rec.band','obs.col','obs.hunt','rec.col')
+  np.event    <-c(21     , 40       , 39      , 39       , 40)
+  event.up    <-c(0.05   , 0.4      , 0.6     , 0.3      , 0.4) 
+  event.low   <-c(0      , 0.15     , 0.4     , 0.2      , 0.15)
 
 #Loop for running model with multiple initial values
 for(i in 1:n.iter){
@@ -65,27 +95,9 @@ for(i in 1:n.iter){
   #Write fixed values to model definition
   evaluate(matlab1,"[modeldef,ivfvdef]=esurge_ivfv(modeldef,sep,indR,indB,valR,valB)")
 
-  #Function to attribute initial values. The script for this function is found on the same repository as this script
-  #Important that IVs are in the right order. Also best if stored as a vector (matrices do not work so well right now)
-  #IVs need to be on the real scale!
-  init.states <-c("AC", 'AL', "ND1L")
-  np.inits    <-c(1   , 1   , 1)
-  inits.up    <-c(0.3 , 0.9 , 0.1)
-  inits.low   <-c(0.1 , 0.5 , 0)
-
-  transitions <-c('col.loss', 'surv')
-  np.trs      <-c(1         ,  4)
-  trs.up      <-c(0.05      ,  0.999)  #(max val for col loss, max val for survival)
-  trs.low     <-c(0         ,  0.85)   #(min val for col loss, min val for survival)
-
-  events      <-c('recap','rec.band','obs.col','obs.hunt','rec.col')
-  np.event    <-c(21     , 40       , 39      , 39       , 40)
-  event.up    <-c(0.05   , 0.4      , 0.6     , 0.3      , 0.4) 
-  event.low   <-c(0      , 0.15     , 0.4     , 0.2      , 0.15)
-
-
   #If no initial states to estimate, no need to specify them in the function (there are default values), unlike for transitions and events.
-  init.vals<-  IV(init.states = init.states, 
+  init.vals<-  IV(
+     init.states = init.states, 
      np.inits    = np.inits,    
      inits.up    = inits.up,    
      inits.low   = inits.low,   

@@ -3,7 +3,7 @@
 #If you have only 1 initial state, do not take it into account and there is no need to specify it.
 
 IV<-function(init.states=NULL, # title of initial parameters
-             np.inits=0,       # number of parameters
+             np.inits=0,       # number of parameters for initial state
              inits.up=NULL,    # max value for IV inits
              inits.low=NULL,   # min value for IV inits
              transitions,      # title of transision parameters

@@ -1,7 +1,6 @@
 #Important: do not include the fixed parameters in your counts. Only include the parameters that will be estimated.
 #If all birds are in the same state at capture (IS), then this parameter will NOT be estimated and the proportion for this state is automatically 1.
 #If you have only 1 initial state, do not take it into account and there is no need to specify it.
-#Right now, this function does not work if you have multiple steps of initial states.
 
 IV<-function(init.states=NULL, # title of initial parameters
              np.inits=0,       # number of parameters

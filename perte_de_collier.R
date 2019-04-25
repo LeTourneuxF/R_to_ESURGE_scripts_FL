@@ -31,6 +31,9 @@ for(i in 1:nrow(n.data)){
   
   marking<-min(which(data.col[i,]==2|data.col[i,]==1))
   
+  data.col[i,marking]
+  
+  
   indline<-data.col[i,marking:ncol(data.col)]
   
   n.data[i,]<-c(indline,c(rep(0,times=(marking-1))))

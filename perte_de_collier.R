@@ -31,9 +31,10 @@ for(i in 1:nrow(n.data)){
   
   marking<-min(which(data.col[i,]==2|data.col[i,]==1))
   
-  indline<-data.col[i,marking:ncol(data.col)]
+  indline<-test2
   
   n.data[i,]<-c(indline,c(rep(0,times=(marking-1))))
+
   
 }
 
@@ -71,7 +72,7 @@ for(t in 1:ncol(newdat)){
 col[1]<-0
 lost[1]<-NA
 
-plot(col[2:25], main="Nb d'individus ‡ la recapture \n noir: colliers recapturÈs; rouge colliers perdus", ylab='Nb.individus',xlab='year', pch=18)
+plot(col[2:25], main="Nb d'individus √† la recapture \n noir: colliers recaptur√©s; rouge colliers perdus", ylab='Nb.individus',xlab='year', pch=18)
 points(lost[2:25],pch=18, col='red')
 
 plot(prop1[1:25], type='l', col='black')
@@ -80,14 +81,14 @@ points(prop2[1:25], type='l', col='red')
 
 setwd("C:\\Users\\Frederic Letourneaux\\Documents\\Doc\\Data\\2019 Hiver\\perte_col")
 
-#Charger les donnÈes
+#Charger les donn√©es
 col_loss<-read.table('collar_loss.txt')
-#GÈrer noms de colonnes
+#G√©rer noms de colonnes
 loss<-col_loss[,c(5:114)]
 colnames(loss)<- seq(1,110,1)
 c_loss<-cbind(col_loss[,1:4],loss)
 
-#CrÈer nouvelles colonnes pour dÈterminer les occasions avec premier et dernier 2 et premier 1
+#Cr√©er nouvelles colonnes pour d√©terminer les occasions avec premier et dernier 2 et premier 1
 c_loss$first2<-NA
 c_loss$last2 <-NA
 c_loss$first1<-NA
@@ -101,20 +102,20 @@ for(i in 1:nrow(c_loss)){
   
 }
 
-#VÈrifier qu'on a pas remis de collier sur une recap
+#V√©rifier qu'on a pas remis de collier sur une recap
 which(c_loss$last2>c_loss$first1)
 
-#Calculer le # d'occasions entre derniËre obs collier et recap sans collier
+#Calculer le # d'occasions entre derni√®re obs collier et recap sans collier
 c_loss$time<-c_loss$first1-c_loss$last2
 
-#Colliers perdus et identifiÈs la mÍme annÈe
+#Colliers perdus et identifi√©s la m√™me ann√©e
 c_loss_1y<-c_loss[which(c_loss$time<5),]
 
 c_loss_1y$t4loss<-c_loss_1y$first1-c_loss_1y$first2
 
 table(c_loss_1y$t4loss)
 
-#Colliers perdus et identifiÈs en 2 ans ou moins
+#Colliers perdus et identifi√©s en 2 ans ou moins
 c_loss_2y<-c_loss[which(c_loss$time<9),]
 
 c_loss_2y<-c_loss_2y[-which(c_loss_2y$NIPO_B==111953),]
@@ -123,12 +124,12 @@ c_loss_2y$t4loss<-c_loss_2y$first1-c_loss_2y$first2
 
 table(c_loss_2y$t4loss)
 
-hist(c_loss_2y$t4loss/4, main="Years before collar loss (2 ans prËs)", ylab="# lost", xlab='years')
+hist(c_loss_2y$t4loss/4, main="Years before collar loss (2 ans pr√®s)", ylab="# lost", xlab='years')
 
-hist(c_loss_1y$t4loss/4, main="Years before collar loss (1 ans prËs)", ylab="# lost", xlab='years', breaks=10, xlim=c(0,10))
+hist(c_loss_1y$t4loss/4, main="Years before collar loss (1 ans pr√®s)", ylab="# lost", xlab='years', breaks=10, xlim=c(0,10))
 
-plot(table(c_loss_2y$t4loss/4), main="Age of collar at loss (2 ans prËs)", ylab="# lost", xlab='age')
-plot(table(c_loss_1y$t4loss/4), main="Age of collar at loss (1 an prËs)", ylab="# lost", xlab='age')
+plot(table(c_loss_2y$t4loss/4), main="Age of collar at loss (2 ans pr√®s)", ylab="# lost", xlab='age')
+plot(table(c_loss_1y$t4loss/4), main="Age of collar at loss (1 an pr√®s)", ylab="# lost", xlab='age')
 
 #####*Recaptures colliers non-perdus####
 
@@ -207,23 +208,23 @@ collar.age<-collar.age/4
 table(collar.age[,1])
 sum(table(collar.age[,2]))
 sum(table(collar.age[,2]))
-plot(table(collar.age[,1]), main='‚ge ‡ la premiËre recapture, n=754')
-plot(table(collar.age[,2]), main='‚ge ‡ la deuxiËme recapture, n=72')
-plot(table(collar.age[,3]), main='‚ge ‡ la troisiËme recapture, n=7')
+plot(table(collar.age[,1]), main='√¢ge √† la premi√®re recapture, n=754')
+plot(table(collar.age[,2]), main='√¢ge √† la deuxi√®me recapture, n=72')
+plot(table(collar.age[,3]), main='√¢ge √† la troisi√®me recapture, n=7')
 
 
-plot(table(collar.age), main='‚ge ‡ la recapture, n=754')
+plot(table(collar.age), main='√¢ge √† la recapture, n=754')
 
 
 table(loss)
 
-###GÈrer les colliers recapturÈs physiquement
+###G√©rer les colliers recaptur√©s physiquement
 #####*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_  Recaptures *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_####
 setwd("C:\\Users\\Frederic Letourneaux\\Documents\\Doc\\Data\\2018 Hiver")
 
 recap<-read.table("REC_90_17.txt", header=T, sep=";")
 
-##### CrÈer occasion ####
+##### Cr√©er occasion ####
 recap$abs_occasion<-1
 recap$occasion<-(4*recap$an_R+recap$abs_occasion)-4*1989
 
@@ -232,12 +233,12 @@ erreur<-recap[recap$erreur_R!='',]
 recap_ok<-c(which(recap$erreur_R==''),which(recap$erreur_R=="OK"))
 recap<-recap[c(recap_ok),]
 
-##### CrÈer Ètats ####
+##### Cr√©er √©tats ####
 recap$state<-ifelse(recap$pres_collier_R==0,1,2)
 recap.malecol<-recap[recap$sexe_B==4&recap$state==2,]
 recap.nomalecol<-recap[!(recap$sexe_B==4&recap$state==2),]
 
-#enlever m‚les avec colliers, que ce soit erreurs ou autre.
+#enlever m√¢les avec colliers, que ce soit erreurs ou autre.
 recap.nomalecol2<-recap.nomalecol[!(recap.nomalecol$collier_B!=""&recap.nomalecol$sexe_B==4),]
 occurences<-table(unlist(recap$pres_collier_R))
 occurences
@@ -279,7 +280,7 @@ table(recaps.clean$state)
 setwd("C:\\Users\\Frederic Letourneaux\\Documents\\Doc\\Data\\2018 Hiver")
 
 band<-read.table("BAND_90_17.txt", header=T, sep=";")
-##VÈrifier les localitÈs#
+##V√©rifier les localit√©s#
 occurences<-table(unlist(band$loc_B))
 occurences
 
@@ -289,20 +290,20 @@ hist(band_young$an_B)
 ny.banded<-table(band_young$an_B)
 
 plot(ny.banded)
-##### CrÈer occasion#
+##### Cr√©er occasion#
 band$abs_occasion<-1
 band$occasion<-(4*band$an_B+band$abs_occasion)-4*1989
 
-##### CrÈer Ètat#
+##### Cr√©er √©tat#
 band$state<-ifelse(band$collier_B=='',1,2)
 occurences<-table(unlist(band$state))
 occurences
 
-#Identifier les m‚les qui portent des colliers
+#Identifier les m√¢les qui portent des colliers
 which(band$sexe_B==4&band$state==2)
 male.col<-band[band$sexe_B==4&band$state==2,]
 
-#Enlever les colliers mis aux m‚les
+#Enlever les colliers mis aux m√¢les
 band.nocolmale<-band[!(band$sexe_B==4&band$state==2),]
 
 #Enlever les oiseaux avec un changement de sexe
@@ -331,7 +332,7 @@ band.clean<-bands[,c(1,2,14,5,6,7,8,9)]
 #band.clean<-band.nocolmale[,c(3,8,10,11,17,18)]
 
 
-#VÈrifier que tous les NIPOs des tables de rÈobservations se trouvent dans la table band 
+#V√©rifier que tous les NIPOs des tables de r√©observations se trouvent dans la table band 
 table(recaps.clean$NIPO_B %in% band.clean$NIPO_B)
 table(band.clean$NIPO_B %in% recaps.clean$NIPO_B)
 
@@ -360,7 +361,7 @@ head(hcap.max)
 
 data<-hcap.max
 
-#Nombre de colonnes ‡ la fin des donnÈes 
+#Nombre de colonnes √† la fin des donn√©es 
 col_extra <- 0
 vct<-matrix(nrow=length(data$NIPO_B), ncol=2)
 
@@ -388,7 +389,7 @@ for(i in 1:length(data$NIPO_B)){
     maxtwo <- max(two)
     
     vct[i,2] <- ifelse(minone<maxtwo, 1, #0)
-                       ifelse((length(one)>0 & length(two)>0),8,0)) #ligne ‡ ajouter pour connaÓtre les oiseaux qui ont perdu un collier
+                       ifelse((length(one)>0 & length(two)>0),8,0)) #ligne √† ajouter pour conna√Ætre les oiseaux qui ont perdu un collier
   }  
   
   
